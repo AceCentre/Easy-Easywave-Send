@@ -10,7 +10,7 @@ Options:
   -h --help      Show this screen.
   --version      Show version.
   --tcode=<tc>   Transmission code [default: 01].
-  --keycode=<kc> Keycode
+  --keycode=<kc> Keycode  [default: A].
 
 """
 
@@ -21,8 +21,8 @@ from docopt import docopt
 
 if __name__ == '__main__':
     arguments = docopt(__doc__, version='EasyWaveEasySend 1.0')
-usb_port = list(list_ports.grep("Easywave"))[0]
-port = usb_port.device
-ser = serial.Serial(port, 57600)
-ser.write(b'TXP,01,A')
-ser.close()
+    usb_port = list(list_ports.grep("Easywave"))[0]
+    port = usb_port.device
+    ser = serial.Serial(port, 57600)
+    ser.write(b'TXP,'+str(arguments['--tcode']).encode('ascii') + ','+str(arguments['--keycode']).encode('ascii')+'')
+    ser.close()
