@@ -22,8 +22,8 @@ from docopt import docopt
 if __name__ == '__main__':
     arguments = docopt(__doc__, version='EasyWaveEasySend 1.0')
     easywaveports = list(list_ports.grep("Easywave"))
-    if(len(easywaveports)>1):
-        usb_port = easywaveports[0]    
+    if(len(easywaveports) > 0):
+        usb_port = easywaveports[0]
         port = usb_port.device
         ser = serial.Serial(port, 57600)
         thestring = 'TXP,'+str(arguments['--tcode']) + \
@@ -32,4 +32,3 @@ if __name__ == '__main__':
         ser.close()
     else:
         print('No easywave rx09 stick found')
-    
