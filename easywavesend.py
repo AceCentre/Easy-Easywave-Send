@@ -24,5 +24,6 @@ if __name__ == '__main__':
     usb_port = list(list_ports.grep("Easywave"))[0]
     port = usb_port.device
     ser = serial.Serial(port, 57600)
-    ser.write(b'TXP,'+str(arguments['--tcode']).encode('ascii') + ','+str(arguments['--keycode']).encode('ascii')+'')
+    thestring = 'TXP,'+str(arguments['--tcode']).encode('ascii') + ','+str(arguments['--keycode']).encode('ascii')+''
+    ser.write(string(thestring).encode(bytes))
     ser.close()
