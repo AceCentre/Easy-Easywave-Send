@@ -25,10 +25,12 @@ if __name__ == '__main__':
     if(len(easywaveports) > 0):
         usb_port = easywaveports[0]
         port = usb_port.device
-        ser = serial.Serial(port, 57600)
+        ser = serial.Serial(port, 57600, timeout=0)
         thestring = 'TXP,'+str(arguments['--tcode']) + \
             ','+str(arguments['--keycode'])+''
         ser.write(thestring.encode())
+        retText = ser.read(10)
+        print(retText) 
         ser.close()
     else:
         print('No easywave rx09 stick found')
